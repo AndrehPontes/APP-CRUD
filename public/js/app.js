@@ -13904,11 +13904,19 @@ var app = new Vue({
     hasDeleted: true,
     hasAgeError: true,
     showModal: false,
-    e_name: '',
+	e_name: '',
+	e_cpf: '',
+	e_data: '',
+	e_email: '',
+	e_fone: '',
     e_age: '',
     e_id: '',
-    e_profession: '',
-    newItem: { 'name': '', 'age': '', 'profession': '' }
+	e_profession: '',
+	e_cep: '',
+	e_endereco: '',
+	e_cidade: '',
+	e_estado: '',
+    newItem: { 'name': '','cpf': '','data': '','email': '','telefone': '', 'age': '', 'profession': '', 'cep': '', 'endereco': '', 'cidade': '', 'estado': '' }
   },
   mounted: function mounted() {
     this.getVueItems();
@@ -13921,11 +13929,19 @@ var app = new Vue({
         _this.items = response.data;
       });
     },
-    setVal: function setVal(val_id, val_name, val_age, val_profession) {
+    setVal: function setVal(val_id, val_name,val_cpf,val_data,val_email,val_fone, val_age, val_profession, val_cep, val_endereco, val_cidade, val_estado,) {
       this.e_id = val_id;
-      this.e_name = val_name;
+	  this.e_name = val_name;
+	  this.e_cpf = val_cpf;
+	  this.e_data = val_data;
+	  this.e_email = val_email
+	  this.e_fone = val_fone;
       this.e_age = val_age;
-      this.e_profession = val_profession;
+	  this.e_profession = val_profession;
+	  this.e_cep = val_cep;
+	  this.e_endereco = val_endereco;
+	  this.e_cidede = val_cidade;
+	  this.e_estado = val_estado;
     },
 
 
@@ -13933,12 +13949,12 @@ var app = new Vue({
       var _this = this;
       var input = this.newItem;
 
-      if (input['name'] == '' || input['age'] == '' || input['profession'] == '') {
+      if (input['name'] == '' || input['cpf'] == '' || input['data'] == '' || input['email'] == '' || input['fone'] == '' || input['age'] == '' || input['profession'] == '' || input['cep'] == '' || input['endereco'] == '' || input['cidade'] == '' || input['estado'] == '') {
         this.hasError = false;
       } else {
         this.hasError = true;
         axios.post('/vueitems', input).then(function (response) {
-          _this.newItem = { 'name': '', 'age': '', 'profession': '' };
+          _this.newItem = { 'name': '','cpf': '','data': '','email': '','fone': '', 'age': '', 'profession': '', 'cep': '', 'endereco': '', 'cidade': '', 'estado': '' };
           _this.getVueItems();
         });
         this.hasDeleted = true;
@@ -13947,12 +13963,25 @@ var app = new Vue({
     editItem: function editItem() {
       var _this2 = this;
 
-      var i_val_1 = document.getElementById('e_id');
+      /*var i_val_1 = document.getElementById('e_id');
       var n_val_1 = document.getElementById('e_name');
       var a_val_1 = document.getElementById('e_age');
-      var p_val_1 = document.getElementById('e_profession');
+	  var p_val_1 = document.getElementById('e_profession');*/
+	  
+	     var i_val_1 = document.getElementById('e_id');
+         var n_val_1 = document.getElementById('e_name');
+         var c_val_1 = document.getElementById('e_cpf');
+         var d_val_1 = document.getElementById('e_data');
+         var m_val_1 = document.getElementById('e_email');
+         var f_val_1 = document.getElementById('e_fone')
+         var a_val_1 = document.getElementById('e_age');
+         var p_val_1 = document.getElementById('e_profession');
+         var ce_val_1 = document.getElementById('e_cep');
+         var en_val_1 = document.getElementById('e_endereco');
+         var ci_val_1 = document.getElementById('e_cidade');
+         var es_val_1 = document.getElementById('e_estado');
 
-      axios.post('/edititems/' + i_val_1.value, { val_1: n_val_1.value, val_2: a_val_1.value, val_3: p_val_1.value }).then(function (response) {
+      axios.post('/edititems/' + i_val_1.value, {val_1: n_val_1.value, val_4: c_val_1.value, val_5: d_val_1.value, val_6: m_val_1.value, val_7: f_val_1.value, val_2: a_val_1.value,val_3: p_val_1.value, val_8: ce_val_1.value, val_9: en_val_1.value, val_10: ci_val_1.value, val_11: es_val_1.value  }).then(function (response) {
         _this2.getVueItems();
         _this2.showModal = false;
       });

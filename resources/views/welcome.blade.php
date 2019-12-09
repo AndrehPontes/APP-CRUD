@@ -101,50 +101,110 @@ html, body {
                         
                         
                   <div class="form-group">
-                    <label for="name">Name:</label>
+                    <label for="name">Nome:</label>
                     <input type="text" class="form-control" id="name" name="name" 
-                        required v-model="newItem.name" placeholder=" Enter some name">
+                        required v-model="newItem.name" placeholder=" Digite seu nome">
                   </div>
                   <div class="form-group">
-                    <label for="age">Age:</label>
+                    <label for="cpf">Cpf:</label>
+                    <input type="text" class="form-control" id="cpf" name="cpf" 
+                        required v-model="newItem.cpf" placeholder=" Digite seu cpf">
+                  </div>
+                  <div class="form-group">
+                    <label for="data">Data de Nascimento:</label>
+                    <input type="text" class="form-control" id="data" name="data" 
+                        required v-model="newItem.data" placeholder=" Digite sua data de nascimento">
+                  </div>
+                  <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="text" class="form-control" id="email" name="email" 
+                        required v-model="newItem.email" placeholder=" Digite seu e-mail">
+                  </div>
+                  <div class="form-group">
+                    <label for="fone">Telefone:</label>
+                    <input type="text" class="form-control" id="fone" name="fone" 
+                        required v-model="newItem.fone" placeholder=" Digite seu telefone">
+                  </div>
+                  <div class="form-group">
+                    <label for="age">Idade:</label>
                     <input type="number" class="form-control" id="age" name="age" 
-                        required v-model="newItem.age" placeholder=" Enter your age">
+                        required v-model="newItem.age" placeholder=" Digite sua idade">
                   </div>
                   <div class="form-group">
-                    <label for="profession">Profession:</label>
+                    <label for="profession">Profissão:</label>
                     <input type="text" class="form-control" id="profession" name="profession"
-                        required v-model="newItem.profession" placeholder=" Enter your profession">
+                        required v-model="newItem.profession" placeholder=" Digite o nome da sua profissão">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="cep">Cep:</label>
+                    <input type="text" class="form-control" id="cep" name="cep"
+                        required v-model="newItem.cep" placeholder=" Digite seu cep">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="endereco">Cendereço:</label>
+                    <input type="text" class="form-control" id="endereco" name="endereco"
+                        required v-model="newItem.endereco" placeholder=" Digite seu endereço">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="cidade">Cidade:</label>
+                    <input type="text" class="form-control" id="cidade" name="cidade"
+                        required v-model="newItem.cidade" placeholder=" Digite o nome da sua cidade">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="estado">Estado:</label>
+                    <input type="text" class="form-control" id="estado" name="estado"
+                        required v-model="newItem.estado" placeholder=" Digite o nome do seu estado">
                   </div>
 
                  <button class="btn btn-primary" @click.prevent="createItem()" id="name" name="name">
-                    <span class="glyphicon glyphicon-plus"></span> ADD
+                    <span class="glyphicon glyphicon-plus"></span> ADICIONAR
                  </button>
 
                 <p class="text-center alert alert-danger"
-                    v-bind:class="{ hidden: hasError }">Please fill all fields!</p>
+                    v-bind:class="{ hidden: hasError }">Por favor preencha todos os campos!</p>
                     <p class="text-center alert alert-danger"
-                    v-bind:class="{ hidden: hasAgeError }">Please enter a valid age!</p>
+                    v-bind:class="{ hidden: hasAgeError }">Digite uma idade válida!</p>
                 {{ csrf_field() }}
                 <p class="text-center alert alert-success"
-                    v-bind:class="{ hidden: hasDeleted }">Deleted Successfully!</p>
+                    v-bind:class="{ hidden: hasDeleted }">Apagado com sucesso!</p>
                 <div class="table table-borderless" id="table">
                     <table class="table table-borderless" id="table">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th>Age</th>
-                                <th>Profession</th>
-                                <th>Actions</th>
+                                <th>Nome</th>
+                                <th>Cpf</th>
+                                <th>Data</th>
+                                <th>E-mail</th>
+                                <th>Fone</th>
+                                <th>Idade</th>
+                                <th>Profissão</th>
+                                <th>Cep</th>
+                                <th>Endereço</th>
+                                <th>Cidade</th>
+                                <th>Estado</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tr v-for="item in items">
                             <td>@{{ item.id }}</td>
                             <td>@{{ item.name }}</td>
+                            <td>@{{ item.cpf }}</td>
+                            <td>@{{ item.data }}</td>
+                            <td>@{{ item.email }}</td>
+                            <td>@{{ item.fone }}</td>
                             <td>@{{ item.age }}</td>
                             <td>@{{ item.profession }}</td>
+                            <td>@{{ item.cep }}</td>
+                            <td>@{{ item.endereco }}</td>
+                            <td>@{{ item.cidade }}</td>
+                            <td>@{{ item.estado }}</td>
                             
-                            <td id="show-modal" @click="showModal=true; setVal(item.id, item.name, item.age, item.profession)"  class="btn btn-info" ><span
+                            <td id="show-modal" @click="showModal=true; setVal(item.id, item.name, item.cpf, item.data, item.email, item.fone, item.age, item.profession, item.cep, item.endereco, item.cidade, item.estado)"  class="btn btn-info" ><span
                             class="glyphicon glyphicon-pencil"></span></td>
                             <td @click.prevent="deleteItem(item)" class="btn btn-danger"><span
                                 class="glyphicon glyphicon-trash"></span></td>
@@ -152,27 +212,48 @@ html, body {
                     </table>
                 </div>
                 <modal v-if="showModal" @close="showModal=false">
-                    <h3 slot="header">Edit Item</h3>
+                    <h3 slot="header">Editar Cadastro</h3>
                     <div slot="body">
                         
                         <input type="hidden" disabled class="form-control" id="e_id" name="id"
                                 required  :value="this.e_id">
                         Name: <input type="text" class="form-control" id="e_name" name="name"
                                 required  :value="this.e_name">
+
+                        Cpf: <input type="text" class="form-control" id="e_cpf" name="cpf"
+                                required  :value="this.e_cpf">
+                        Data: <input type="text" class="form-control" id="e_data" name="data"
+                                required  :value="this.e_data">        
+                        E-mail: <input type="text" class="form-control" id="e_email" name="email"
+                                required  :value="this.e_email"> 
+                        Telefone: <input type="text" class="form-control" id="e_fone" name="fone"
+                                required  :value="this.e_fone">               
+
                         Age: <input type="number" class="form-control" id="e_age" name="age"
                         required  :value="this.e_age">
+
                         Profession: <input type="text" class="form-control" id="e_profession" name="profession"
                         required  :value="this.e_profession">
                         
+                         Cep: <input type="text" class="form-control" id="e_cep" name="cep"
+                                required  :value="this.e_cep">
+
+                         Endereço: <input type="text" class="form-control" id="e_endereco" name="endereco"
+                                required  :value="this.e_endereco">  
+
+                        Cidade: <input type="text" class="form-control" id="cidade" name="cidade"
+                                required  :value="this.e_cidade"> 
+                        Estado: <input type="text" class="form-control" id="e_estado" name="estado"
+                                required  :value="this.e_estado"> 
                       
                     </div>
                     <div slot="footer">
                         <button class="btn btn-default" @click="showModal = false">
-                        Cancel
+                        Cancelar
                       </button>
                       
                       <button class="btn btn-info" @click="editItem()">
-                        Update
+                        Atualizar
                       </button>
                     </div>
                 </modal>
